@@ -39,14 +39,14 @@ interface WorkplaceResult {
   shifts: number;
 }
 
-const API_BASE_URL = 'http://localhost:3000';
+const WORKPLACES_API_BASE_URL = 'http://localhost:3000';
 
 /**
  * Fetches all active workplaces from the API
  */
 async function fetchActiveWorkplaces(): Promise<Workplace[]> {
   const workplaces: Workplace[] = [];
-  let currentUrl: string | null = `${API_BASE_URL}/workplaces`;
+  let currentUrl: string | null = `${WORKPLACES_API_BASE_URL}/workplaces`;
   
   while (currentUrl) {
     const response = await fetch(currentUrl);
@@ -72,7 +72,7 @@ async function fetchActiveWorkplaces(): Promise<Workplace[]> {
  */
 async function countCompletedShiftsForWorkplace(workplaceId: number): Promise<number> {
   let completedShifts = 0;
-  let currentUrl: string | null = `${API_BASE_URL}/shifts?workerId=&jobType=&location=`;
+  let currentUrl: string | null = `${WORKPLACES_API_BASE_URL}/shifts?workerId=&jobType=&location=`;
   
   const now = new Date();
   
@@ -133,7 +133,7 @@ async function getTopWorkplaces(): Promise<WorkplaceResult[]> {
 }
 
 // Execute the script
-async function main() {
+async function mainWorkplaces() {
   try {
     const result = await getTopWorkplaces();
     // Output exactly as specified - JSON array with no extra formatting
@@ -145,4 +145,4 @@ async function main() {
   }
 }
 
-main();
+mainWorkplaces();

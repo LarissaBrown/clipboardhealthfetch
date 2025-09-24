@@ -38,14 +38,14 @@ interface WorkerResult {
   shifts: number;
 }
 
-const API_BASE_URL = 'http://localhost:3000';
+const WORKERS_API_BASE_URL = 'http://localhost:3000';
 
 /**
  * Fetches all active workers from the API
  */
 async function fetchActiveWorkers(): Promise<Worker[]> {
   const workers: Worker[] = [];
-  let currentUrl: string | null = `${API_BASE_URL}/workers`;
+  let currentUrl: string | null = `${WORKERS_API_BASE_URL}/workers`;
   
   while (currentUrl) {
     const response = await fetch(currentUrl);
@@ -71,7 +71,7 @@ async function fetchActiveWorkers(): Promise<Worker[]> {
  */
 async function countCompletedShiftsForWorker(workerId: number): Promise<number> {
   let completedShifts = 0;
-  let currentUrl: string | null = `${API_BASE_URL}/workers/claims?workerId=${workerId}`;
+  let currentUrl: string | null = `${WORKERS_API_BASE_URL}/workers/claims?workerId=${workerId}`;
   
   const now = new Date();
   
@@ -127,7 +127,7 @@ async function getTopWorkers(): Promise<WorkerResult[]> {
 }
 
 // Execute the script
-async function main() {
+async function mainWorkers() {
   try {
     const result = await getTopWorkers();
     // Output exactly as specified - JSON array with no extra formatting
@@ -139,4 +139,4 @@ async function main() {
   }
 }
 
-main();
+mainWorkers();
