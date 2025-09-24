@@ -53,10 +53,21 @@ Both required scripts have been successfully implemented and tested.
   - Script execution test: ✅ 
   - JSON validation test: ✅
 
-### ⚠️ Test Configuration Issue Resolved
+### ⚠️ Test Configuration Issues Resolved
+
+#### Issue 1: Missing Test Configuration
 - **Issue**: PR initially failed due to missing `jest-exercise.json` configuration file
 - **Root Cause**: CI/CD pipeline expected this config file but it wasn't in repository
 - **Resolution**: Created `jest-exercise.json` based on `jest-basic.json` configuration
+- **Result**: Configuration issue resolved ✅
+
+#### Issue 2: Async Pattern Problems
+- **Issue**: Tests continued failing with "fetch failed" errors in CI environment
+- **Root Cause**: Scripts used `.then()/.catch()` pattern causing race conditions where process could exit before async operations completed
+- **Resolution**: Converted to proper TypeScript async/await pattern:
+  - Replaced `.then()/.catch()` with `async function main()` wrapper
+  - Added explicit `process.exit(0)` for success, `process.exit(1)` for errors
+  - Improved error handling with TypeScript-aware error checking
 - **Result**: All PR tests now pass ✅
 
 ### ✅ Manual Testing Verified
@@ -72,6 +83,7 @@ Both required scripts have been successfully implemented and tested.
 3. **Pagination**: Properly handles paginated API responses using `links.next`
 4. **TypeScript Compilation**: Resolved variable naming conflicts between scripts
 5. **Output Format**: Produces exact JSON format required by tests (no console.log debug statements)
+6. **Async Pattern Fix**: Converted scripts from `.then()/.catch()` to proper `async/await` pattern with explicit process exits for CI reliability
 
 ## Performance Considerations
 - Scripts process all data sequentially for accuracy
