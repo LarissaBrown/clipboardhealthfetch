@@ -53,6 +53,12 @@ Both required scripts have been successfully implemented and tested.
   - Script execution test: ✅ 
   - JSON validation test: ✅
 
+### ⚠️ Test Configuration Issue Resolved
+- **Issue**: PR initially failed due to missing `jest-exercise.json` configuration file
+- **Root Cause**: CI/CD pipeline expected this config file but it wasn't in repository
+- **Resolution**: Created `jest-exercise.json` based on `jest-basic.json` configuration
+- **Result**: All PR tests now pass ✅
+
 ### ✅ Manual Testing Verified
 - Both scripts execute without errors
 - Output format matches exact specification
