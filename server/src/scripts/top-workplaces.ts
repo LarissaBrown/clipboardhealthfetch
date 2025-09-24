@@ -133,12 +133,16 @@ async function getTopWorkplaces(): Promise<WorkplaceResult[]> {
 }
 
 // Execute the script
-getTopWorkplaces()
-  .then(result => {
+async function main() {
+  try {
+    const result = await getTopWorkplaces();
     // Output exactly as specified - JSON array with no extra formatting
     console.log(JSON.stringify(result));
-  })
-  .catch(error => {
-    console.error('Error:', error.message);
+    process.exit(0);
+  } catch (error) {
+    console.error('Error:', error instanceof Error ? error.message : 'Unknown error');
     process.exit(1);
-  });
+  }
+}
+
+main();
